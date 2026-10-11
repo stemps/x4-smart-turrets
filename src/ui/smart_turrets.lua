@@ -1,9 +1,9 @@
--- Size-appropriate Turrets: adds "Attack size-appropriate target" to the "All turrets"
+-- Smart Turrets: adds "Attack best-suited target" to the "All turrets"
 -- mode dropdown of the map's ship info menu and of the cockpit's ship interactions menu
--- (DockedMenu). Selecting it sets L/XL turrets to "prefercapital" and M turrets to
--- "preferfighters". Turret modes are a closed engine enum, so this is a preset over
--- vanilla modes, not a new mode; the dropdown shows it whenever the turrets currently
--- match the mapping, so nothing is stored in saves.
+-- (DockedMenu). Selecting it sets each turret to "preferfighters" or "prefercapital"
+-- by its role (turret_roles.lua). Turret modes are a closed engine enum, so this is a
+-- preset over vanilla modes, not a new mode; the dropdown shows it whenever the turrets
+-- currently match the mapping, so nothing is stored in saves.
 
 local ffi = require("ffi")
 local C = ffi.C
@@ -24,19 +24,12 @@ ffi.cdef[[
 	void SetWeaponMode(UniverseID weaponid, const char* mode);
 ]]
 
-local TEXT_PAGE = 992101
-local OPTION_ID = "sizeappropriate"
-local MODE_BY_SIZE = {
-	extralarge = "prefercapital",
-	large = "prefercapital",
-	medium = "preferfighters",
-}
+local ST = SmartTurrets
+local OPTION_ID = "smartturrets"
 -- uiTriggerID of the cockpit menu's "All turrets" mode dropdown (vanilla and UI Extensions).
 local DOCKED_ALL_DROPDOWN = "docked_turretconfig_modes"
 
-local function log(message)
-	DebugError("size_appropriate_turrets: " .. message)
-end
+local log = ST.log
 
 -- ---------------------------------------------------------------------------
 -- Preset logic. Both menus keep the displayed ship's ungrouped turrets in
@@ -44,8 +37,8 @@ end
 -- same way, so the preset works on either menu.
 -- ---------------------------------------------------------------------------
 
--- menu.turrets holds only the components of ungrouped turrets; their slot size needs
--- the slot index, so walk the slots the same way the menus do.
+-- menu.turrets holds only the components of ungrouped turrets; their slot size (the
+-- role fallback) needs the slot index, so walk the slots the same way the menus do.
 local function singularTurretSizes(ship)
 	local sizes = {}
 	local numslots = tonumber(C.GetNumUpgradeSlots(ship, "", "turret"))
@@ -59,21 +52,22 @@ local function singularTurretSizes(ship)
 end
 
 -- The turrets and groups of the displayed ship that the preset changes, each with its
--- target mode. Other sizes and weapons that do not support the mode stay untouched.
+-- target mode. Turrets without a role and weapons that do not support their mode stay
+-- untouched.
 local function presetTargets(menu, ship)
 	local targets = {}
 	if #menu.turrets > 0 then
 		local sizes = singularTurretSizes(ship)
 		for _, turret in ipairs(menu.turrets) do
-			local mode = MODE_BY_SIZE[sizes[tostring(turret)]]
+			local mode = ST.turretMode(turret, sizes[tostring(turret)])
 			if mode and C.IsWeaponModeCompatible(turret, "", mode) then
 				table.insert(targets, { turret = turret, mode = mode })
 			end
 		end
 	end
 	for _, group in ipairs(menu.turretgroups) do
-		local mode = MODE_BY_SIZE[group.slotsize]
-		if mode and (group.currentcomponent ~= 0) and C.IsWeaponModeCompatible(group.currentcomponent, "", mode) then
+		local mode = (group.currentcomponent ~= 0) and ST.turretMode(group.currentcomponent, group.slotsize)
+		if mode and C.IsWeaponModeCompatible(group.currentcomponent, "", mode) then
 			table.insert(targets, { group = group, mode = mode })
 		end
 	end
@@ -127,7 +121,7 @@ local function addPresetOption(cell, menu, ship, onApplied)
 		log("'All' turret row has no mode dropdown in " .. menu.name .. "; preset not offered")
 		return
 	end
-	table.insert(cell.properties.options, { id = OPTION_ID, text = ReadText(TEXT_PAGE, 2), icon = "", displayremoveoption = false })
+	table.insert(cell.properties.options, { id = OPTION_ID, text = ReadText(ST.TEXT_PAGE, 2), icon = "", displayremoveoption = false })
 	local originalConfirmed = cell.handlers.onDropDownConfirmed
 	cell.handlers.onDropDownConfirmed = function (dropdown, newturretmode, ...)
 		if newturretmode == OPTION_ID then

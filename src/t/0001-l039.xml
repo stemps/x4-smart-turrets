@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language id="39">
-  <page id="992101" title="Size-appropriate Turrets" voice="no">
-    <t id="1">Size-appropriate Turrets</t>
-    <t id="2">Attacca bersagli adatti alla dimensione</t>
+  <page id="992101" title="Smart Turrets" voice="no">
+    <t id="1">Smart Turrets</t>
+    <t id="2">Attacca il bersaglio più adatto</t>
+    <t id="3">Velocità di rotazione almeno</t>
+    <t id="4">Le torrette devono ruotare così velocemente per seguire i caccia che passano a distanza ravvicinata.</t>
+    <t id="5">e velocità dei proiettili almeno</t>
+    <t id="6">I proiettili più lenti mancano i caccia in manovra. I raggi contano sempre come abbastanza veloci.</t>
+    <t id="8">L'esplosione compensa gli errori di mira, quindi le torrette con danno ad area possono ruotare più lentamente.</t>
+    <t id="10">Attacca prima i caccia</t>
+    <t id="11">Attacca prima le navi capitali</t>
+    <t id="12">Ruoli di tutte le torrette con le soglie attuali. Passa il mouse su una torretta per vederne le statistiche. Le torrette lanciamissili vengono assegnate in base alla dimensione e le torrette che non supportano nessuna delle due modalità non sono elencate.</t>
+    <t id="13">Danno ad area</t>
+    <t id="14">Nessun dato sulle torrette ricevuto finora. Carica una partita, poi riapri questa pagina.</t>
+    <t id="15">Ripristina valori predefiniti</t>
+    <t id="16">Stabilisce se le torrette preferiscono i caccia o le navi capitali in base a velocità di rotazione, velocità dei proiettili ed effetto ad area.</t>
+    <t id="17">Attacca prima i caccia se una torretta ha ...</t>
+    <t id="19">... oppure danno ad area e</t>
+    <t id="20">Tutte le altre torrette attaccano prima le navi capitali. Le torrette lanciamissili vengono assegnate in base alla dimensione.</t>
+    <t id="21">Visualizza risultati: %1 caccia, %2 navi capitali</t>
+    <t id="22">Visualizza risultati</t>
   </page>
 </language>

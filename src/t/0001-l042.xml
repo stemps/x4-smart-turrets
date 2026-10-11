@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language id="42">
-  <page id="992101" title="Size-appropriate Turrets" voice="no">
-    <t id="1">Size-appropriate Turrets</t>
-    <t id="2">Útok na cíle podle velikosti</t>
+  <page id="992101" title="Smart Turrets" voice="no">
+    <t id="1">Smart Turrets</t>
+    <t id="2">Útočit na nejvhodnější cíl</t>
+    <t id="3">Rychlost otáčení alespoň</t>
+    <t id="4">Věže se musí otáčet takto rychle, aby udržely krok se stíhačkami, které je křižují zblízka.</t>
+    <t id="5">a rychlost projektilů alespoň</t>
+    <t id="6">Pomalejší projektily minou manévrující stíhačky. Paprsky jsou vždy dostatečně rychlé.</t>
+    <t id="8">Exploze vyrovná chyby v míření, takže věže s plošným poškozením se mohou otáčet pomaleji.</t>
+    <t id="10">Nejprve útočit na stíhačky</t>
+    <t id="11">Nejprve útočit na velké lodě</t>
+    <t id="12">Role všech věží při aktuálních prahových hodnotách. Najetím myší na věž zobrazíte její parametry. Raketové věže se přiřazují podle velikosti a věže, které nepodporují žádný z obou režimů, nejsou uvedeny.</t>
+    <t id="13">Plošné poškození</t>
+    <t id="14">Zatím nebyla přijata žádná data o věžích. Načtěte hru a otevřete tuto stránku znovu.</t>
+    <t id="15">Obnovit výchozí hodnoty</t>
+    <t id="16">Určuje, zda věže upřednostňují stíhačky, nebo velké lodě, podle rychlosti otáčení, rychlosti projektilů a plošného účinku.</t>
+    <t id="17">Nejprve útočit na stíhačky, pokud má věž ...</t>
+    <t id="19">... nebo plošné poškození a</t>
+    <t id="20">Všechny ostatní věže útočí nejprve na velké lodě. Raketové věže se přiřazují podle velikosti.</t>
+    <t id="21">Zobrazit výsledky: %1 stíhačky, %2 velké lodě</t>
+    <t id="22">Zobrazit výsledky</t>
   </page>
 </language>

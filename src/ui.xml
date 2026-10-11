@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon name="size_appropriate_turrets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../ui/core/addon.xsd">
+<addon name="smart_turrets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../ui/core/addon.xsd">
   <environment type="menus">
     <dependency name="ego_detailmonitorhelper" />
     <dependency name="ego_detailmonitor" />
     <dependency name="kuertee_ui_extensions" />
-    <file name="ui/size_appropriate_turrets.lua" />
+    <!-- Order matters: settings.lua creates the shared namespace the others use. -->
+    <file name="ui/settings.lua" />
+    <file name="ui/turret_roles.lua" />
+    <file name="ui/smart_turrets.lua" />
+    <file name="ui/test_results.lua" />
   </environment>
 </addon>

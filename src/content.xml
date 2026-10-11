@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<content id="size_appropriate_turrets"
-  name="Size-appropriate Turrets"
-  description="Turrets choose targets appropriate for their size."
+<content id="smart_turrets"
+  name="Smart Turrets"
+  description="Turrets attack fighters or capital ships first, based on turn rate, projectile speed and area damage."
   author="stemps"
   version="0"
   date="2026-10-11"
   save="false"
   enabled="true">
   <dependency version="900" name="X4: Foundations" />
+  <!-- Its "Extension Options" menu hosts the turret role thresholds
+       (md/smart_turrets.xml). Same id on Nexus and the Workshop. -->
+  <dependency id="ws_2042901274" name="SirNukes Mod Support APIs" />
   <!-- Optional and only for load order: UI Extensions replaces menu_map.lua, whose
        functions this mod wraps. It ships under different ids on Nexus and the Workshop,
        so a hard dependency would disable the mod for half of its users. -->

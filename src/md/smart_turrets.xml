@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smart Turrets: the mod's page in the "Extension Options" menu of SirNukes
+     Mod Support APIs (Simple_Menu_API options menus), with the turret role thresholds and
+     a link to a "Test results" page listing the role of every turret.
+
+     Thresholds are stored per user profile with md.Userdata (uidata.xml) under owner
+     'smart_turrets', key 'settings'; the $key names are storage keys, never
+     rename them. Defaults must match ST.DEFAULTS in ui/settings.lua. After every game
+     load or /reloadui (Simple_Menu_API.Reloaded) and on every slider change, each value
+     goes to the UI Lua as the Lua event 'SmartTurrets.<key>', followed by
+     'SmartTurrets.publishTurretRoles', which makes ui/test_results.lua send the
+     turret roles back as UI events (screen 'SmartTurrets'). They are kept in
+     Globals until the results page is opened, because options pages must be built in
+     the frame they open. -->
+<mdscript name="SmartTurrets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+  <cues>
+    <cue name="Globals">
+      <actions>
+        <set_value name="Globals.$settings" exact="table[]" />
+        <set_value name="Globals.$fighters" exact="table[]" />
+        <set_value name="Globals.$capital" exact="table[]" />
+        <set_value name="Globals.$received" exact="false" />
+        <set_value name="Globals.$buttontext" exact="{992101, 22}" />
+      </actions>
+    </cue>
+
+    <library name="Load_Sliders">
+      <actions>
+        <!-- In page order. $heading: the rule clause shown above the slider, if any. -->
+        <set_value name="Globals.$sliders" exact="[
+          table[$key = 'fighterMinRotation', $name = {992101, 3}, $mouseover = {992101, 4},
+                $default = 75, $max = 200, $step = 5, $suffix = {1001, 117}],
+          table[$key = 'fighterMinBulletSpeed', $name = {992101, 5}, $mouseover = {992101, 6},
+                $default = 1200, $max = 10000, $step = 100, $suffix = {1001, 113}],
+          table[$key = 'areaFighterMinRotation', $name = {992101, 3}, $mouseover = {992101, 8},
+                $default = 45, $max = 200, $step = 5, $suffix = {1001, 117}, $heading = {992101, 19}],
+          ]" />
+      </actions>
+    </library>
+
+    <!-- An empty, unselectable row for vertical space on an options page. -->
+    <library name="Add_Spacer_Row">
+      <actions>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[$col = 1, $colSpan = 2, $text = ' ']" />
+      </actions>
+    </library>
+
+    <library name="Store_Settings">
+      <actions>
+        <run_actions ref="md.Userdata.Write">
+          <param name="Owner" value="'smart_turrets'" />
+          <param name="Key" value="'settings'" />
+          <param name="Value" value="Globals.$settings" />
+        </run_actions>
+      </actions>
+    </library>
+
+    <!-- Sends every threshold to the UI Lua, then asks it for the turret roles. -->
+    <library name="Send_Settings">
+      <actions>
+        <do_for_each name="$slider" in="Globals.$sliders">
+          <raise_lua_event name="'SmartTurrets.' + $slider.$key" param="Globals.$settings.{'$' + $slider.$key}" />
+        </do_for_each>
+        <raise_lua_event name="'SmartTurrets.publishTurretRoles'" />
+      </actions>
+    </library>
+
+    <cue name="Register_Menus" instantiate="true">
+      <conditions>
+        <event_cue_signalled cue="md.Simple_Menu_API.Reloaded" />
+      </conditions>
+      <actions>
+        <include_actions ref="Load_Sliders" />
+        <run_actions ref="md.Userdata.Read" result="$stored">
+          <param name="Owner" value="'smart_turrets'" />
+          <param name="Key" value="'settings'" />
+          <param name="Default" value="table[]" />
+        </run_actions>
+        <set_value name="Globals.$settings" exact="table[]" />
+        <do_for_each name="$slider" in="Globals.$sliders">
+          <set_value name="$value" exact="@$stored.{'$' + $slider.$key}" />
+          <set_value name="Globals.$settings.{'$' + $slider.$key}" exact="if (typeof $value).isnumeric then $value else $slider.$default" />
+        </do_for_each>
+
+        <signal_cue_instantly cue="md.Simple_Menu_API.Register_Options_Menu" param="table[
+          $id      = 'smart_turrets',
+          $columns = 2,
+          $title   = {992101, 1},
+          $onOpen  = Build_Settings_Menu,
+          ]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Register_Options_Menu" param="table[
+          $id      = 'smart_turrets_results',
+          $columns = 2,
+          $title   = {992101, 22},
+          $onOpen  = Build_Results_Menu,
+          $private = 1,
+          ]" />
+
+        <include_actions ref="Send_Settings" />
+      </actions>
+    </cue>
+
+    <cue name="Build_Settings_Menu" instantiate="true" namespace="this">
+      <conditions>
+        <event_cue_signalled />
+      </conditions>
+      <actions>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 1,
+          $colSpan = 2,
+          $text = {992101, 16},
+          $wordwrap = true,
+          ]" />
+        <!-- The sliders are grouped as the rule reads: fighters first if a turret has a
+             fast turn rate and fast projectiles, or area damage and a lower turn rate;
+             else capital ships. -->
+        <include_actions ref="Add_Spacer_Row" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 1,
+          $colSpan = 2,
+          $text = {992101, 17},
+          $font = 'Helper.standardFontBold',
+          ]" />
+        <do_for_each name="$slider" in="Globals.$sliders">
+          <do_if value="$slider.$heading?">
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+              $col = 1,
+              $colSpan = 2,
+              $text = '    ' + $slider.$heading,
+              ]" />
+          </do_if>
+          <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+          <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+            $col = 1,
+            $text = '        ' + $slider.$name,
+            $mouseOverText = $slider.$mouseover,
+            ]" />
+          <signal_cue_instantly cue="md.Simple_Menu_API.Make_Slider" param="table[
+            $col = 2,
+            $min = 0,
+            $max = $slider.$max,
+            $step = $slider.$step,
+            $suffix = $slider.$suffix,
+            $start = Globals.$settings.{'$' + $slider.$key},
+            $mouseOverText = $slider.$mouseover,
+            $echo = $slider.$key,
+            $onSliderCellConfirm = On_Slider_Confirm,
+            ]" />
+        </do_for_each>
+        <include_actions ref="Add_Spacer_Row" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 1,
+          $colSpan = 2,
+          $text = {992101, 20},
+          $wordwrap = true,
+          ]" />
+        <include_actions ref="Add_Spacer_Row" />
+        <!-- A button instead of Add_Submenu_Link: link rows open only on double click
+             (the first click selects the row). The click goes to the UI Lua, which opens
+             the page the way the link would. -->
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Button" param="table[
+          $col = 1,
+          $text = table[$text = {992101, 15}, $halign = 'center'],
+          $onClick = On_Reset_Click,
+          ]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Button" param="table[
+          $id = 'test_results_button',
+          $col = 2,
+          $text = table[$text = if @Globals.$buttontext then Globals.$buttontext else {992101, 22}, $halign = 'center'],
+          $onClick = On_Test_Results_Click,
+          ]" />
+      </actions>
+    </cue>
+
+    <!-- Restores the default thresholds and rebuilds the page so the sliders show them. -->
+    <cue name="On_Reset_Click" instantiate="true" namespace="this">
+      <conditions>
+        <event_cue_signalled />
+      </conditions>
+      <actions>
+        <do_for_each name="$slider" in="Globals.$sliders">
+          <set_value name="Globals.$settings.{'$' + $slider.$key}" exact="$slider.$default" />
+        </do_for_each>
+        <include_actions ref="Store_Settings" />
+        <include_actions ref="Send_Settings" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Refresh_Menu" param="table[]" />
+      </actions>
+    </cue>
+
+    <cue name="On_Test_Results_Click" instantiate="true" namespace="this">
+      <conditions>
+        <event_cue_signalled />
+      </conditions>
+      <actions>
+        <raise_lua_event name="'SmartTurrets.openTestResults'" param="'smart_turrets_results'" />
+      </actions>
+    </cue>
+
+    <cue name="On_Slider_Confirm" instantiate="true" namespace="this">
+      <conditions>
+        <event_cue_signalled />
+      </conditions>
+      <actions>
+        <set_value name="Globals.$settings.{'$' + event.param.$echo}" exact="event.param.$value" />
+        <include_actions ref="Store_Settings" />
+        <include_actions ref="Send_Settings" />
+      </actions>
+    </cue>
+
+    <cue name="Build_Results_Menu" instantiate="true" namespace="this">
+      <conditions>
+        <event_cue_signalled />
+      </conditions>
+      <actions>
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 1,
+          $colSpan = 2,
+          $text = if Globals.$received then {992101, 12} else {992101, 14},
+          $wordwrap = true,
+          ]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 1,
+          $text = {992101, 10},
+          $font = 'Helper.standardFontBold',
+          $titleColor = 'Color.row_title',
+          ]" />
+        <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+          $col = 2,
+          $text = {992101, 11},
+          $font = 'Helper.standardFontBold',
+          $titleColor = 'Color.row_title',
+          ]" />
+
+        <set_value name="$fighterkeys" exact="Globals.$fighters.keys.list" />
+        <sort_list list="$fighterkeys" />
+        <set_value name="$capitalkeys" exact="Globals.$capital.keys.list" />
+        <sort_list list="$capitalkeys" />
+        <do_all exact="[$fighterkeys.count, $capitalkeys.count].max" counter="$i">
+          <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+          <do_if value="$i le $fighterkeys.count">
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+              $col = 1,
+              $text = Globals.$fighters.{$fighterkeys.{$i}}.$name,
+              $mouseOverText = Globals.$fighters.{$fighterkeys.{$i}}.$info,
+              ]" />
+          </do_if>
+          <do_if value="$i le $capitalkeys.count">
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text" param="table[
+              $col = 2,
+              $text = Globals.$capital.{$capitalkeys.{$i}}.$name,
+              $mouseOverText = Globals.$capital.{$capitalkeys.{$i}}.$info,
+              ]" />
+          </do_if>
+        </do_all>
+      </actions>
+    </cue>
+
+    <!-- Turret roles from ui/test_results.lua. Variants with the same name and role
+         (eg. _01/_02 macros) are listed once. -->
+    <cue name="On_Turret_Roles_Begin" instantiate="true">
+      <conditions>
+        <event_ui_triggered screen="'SmartTurrets'" control="'turretRolesBegin'" />
+      </conditions>
+      <actions>
+        <set_value name="Globals.$pendingfighters" exact="table[]" />
+        <set_value name="Globals.$pendingcapital" exact="table[]" />
+      </actions>
+    </cue>
+
+    <cue name="On_Turret_Role" instantiate="true">
+      <conditions>
+        <event_ui_triggered screen="'SmartTurrets'" control="'turretRole'" />
+      </conditions>
+      <actions>
+        <set_value name="$role" exact="event.param3" />
+        <do_if value="$role.$fighters == 1">
+          <set_value name="Globals.$pendingfighters.{'$' + $role.$name}" exact="table[$name = $role.$name, $info = $role.$info]" />
+        </do_if>
+        <do_else>
+          <set_value name="Globals.$pendingcapital.{'$' + $role.$name}" exact="table[$name = $role.$name, $info = $role.$info]" />
+        </do_else>
+      </actions>
+    </cue>
+
+    <cue name="On_Turret_Roles_End" instantiate="true">
+      <conditions>
+        <event_ui_triggered screen="'SmartTurrets'" control="'turretRolesEnd'" />
+      </conditions>
+      <actions>
+        <set_value name="Globals.$fighters" exact="Globals.$pendingfighters" />
+        <set_value name="Globals.$capital" exact="Globals.$pendingcapital" />
+        <set_value name="Globals.$received" exact="true" />
+        <set_value name="Globals.$buttontext" exact="{992101, 21}.[Globals.$fighters.keys.count, Globals.$capital.keys.count]" />
+        <!-- Updates the counts if the settings page is showing; skipped otherwise. -->
+        <signal_cue_instantly cue="md.Simple_Menu_API.Update_Widget" param="table[
+          $id = 'test_results_button',
+          $text = table[$text = Globals.$buttontext],
+          ]" />
+      </actions>
+    </cue>
+  </cues>
+</mdscript>

@@ -3,8 +3,8 @@
   "mod_id": null,
   "file_id": null,
   "create_new_file": true,
-  "display_name": "Size-appropriate Turrets",
-  "description": "Turrets choose targets appropriate for their size.",
+  "display_name": "Smart Turrets",
+  "description": "Turrets attack fighters or capital ships first, based on turn rate, projectile speed and area damage.",
   "category": "main",
   "archive_existing_file": false,
   "update_mod_version": true

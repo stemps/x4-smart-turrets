@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language id="55">
-  <page id="992101" title="Size-appropriate Turrets" voice="no">
-    <t id="1">Size-appropriate Turrets</t>
-    <t id="2">Atacar alvos adequados ao tamanho</t>
+  <page id="992101" title="Smart Turrets" voice="no">
+    <t id="1">Smart Turrets</t>
+    <t id="2">Atacar o alvo mais adequado</t>
+    <t id="3">Velocidade de rotação de pelo menos</t>
+    <t id="4">As torres precisam girar tão rápido para acompanhar caças que passam a curta distância.</t>
+    <t id="5">e velocidade do projétil de pelo menos</t>
+    <t id="6">Projéteis mais lentos erram caças em manobra. Feixes sempre contam como rápidos o suficiente.</t>
+    <t id="8">A explosão compensa erros de mira, então torres com dano em área podem girar mais devagar.</t>
+    <t id="10">Atacar caças primeiro</t>
+    <t id="11">Atacar naves capitais primeiro</t>
+    <t id="12">Funções de todas as torres com os limites atuais. Passe o mouse sobre uma torre para ver seus atributos. Torres de mísseis são atribuídas pelo tamanho, e torres que não suportam nenhum dos dois modos não são listadas.</t>
+    <t id="13">Dano em área</t>
+    <t id="14">Nenhum dado de torre recebido ainda. Carregue um jogo e abra esta página novamente.</t>
+    <t id="15">Restaurar padrões</t>
+    <t id="16">Define se as torres preferem caças ou naves capitais com base na velocidade de rotação, na velocidade dos projéteis e no efeito em área.</t>
+    <t id="17">Atacar caças primeiro se uma torre tiver ...</t>
+    <t id="19">... ou dano em área e</t>
+    <t id="20">Todas as outras torres atacam naves capitais primeiro. Torres de mísseis são atribuídas pelo tamanho.</t>
+    <t id="21">Ver resultados: %1 caças, %2 naves capitais</t>
+    <t id="22">Ver resultados</t>
   </page>
 </language>
