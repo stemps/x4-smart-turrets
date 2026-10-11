@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content id="size_approproate_turrets"
+  name="Size-appropriate Turrets"
+  description="Turrets choose targets appropriate for their size."
+  author="stemps"
+  version="0"
+  date="2026-10-11"
+  save="false"
+  enabled="true">
+  <dependency version="900" name="X4: Foundations" />
+</content>
