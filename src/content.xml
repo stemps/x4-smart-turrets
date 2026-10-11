@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<content id="size_approproate_turrets"
+<content id="size_appropriate_turrets"
   name="Size-appropriate Turrets"
   description="Turrets choose targets appropriate for their size."
   author="stemps"
@@ -8,4 +8,8 @@
   save="false"
   enabled="true">
   <dependency version="900" name="X4: Foundations" />
+  <!-- Optional and only for load order: UI Extensions replaces menu_map.lua, whose
+       functions this mod wraps. It ships under different ids on Nexus and the Workshop,
+       so a hard dependency would disable the mod for half of its users. -->
+  <dependency id="kuerteeUIExtensionsAndHUD" optional="true" name="kuertee UI Extensions and HUD" />
 </content>
