@@ -5,7 +5,7 @@
     <t id="2">Útočit na nejvhodnější cíl</t>
     <t id="3">Rychlost otáčení alespoň</t>
     <t id="4">Věže se musí otáčet takto rychle, aby udržely krok se stíhačkami, které je křižují zblízka.</t>
-    <t id="5">a rychlost projektilů alespoň</t>
+    <t id="5">Rychlost projektilů alespoň</t>
     <t id="6">Pomalejší projektily minou manévrující stíhačky. Paprsky jsou vždy dostatečně rychlé.</t>
     <t id="8">Exploze vyrovná chyby v míření, takže věže s plošným poškozením se mohou otáčet pomaleji.</t>
     <t id="10">Nejprve útočit na stíhačky</t>
@@ -14,11 +14,14 @@
     <t id="13">Plošné poškození</t>
     <t id="14">Zatím nebyla přijata žádná data o věžích. Načtěte hru a otevřete tuto stránku znovu.</t>
     <t id="15">Obnovit výchozí hodnoty</t>
-    <t id="16">Určuje, zda věže upřednostňují stíhačky, nebo velké lodě, podle rychlosti otáčení, rychlosti projektilů a plošného účinku.</t>
-    <t id="17">Nejprve útočit na stíhačky, pokud má věž ...</t>
-    <t id="19">... nebo plošné poškození a</t>
-    <t id="20">Všechny ostatní věže útočí nejprve na velké lodě. Raketové věže se přiřazují podle velikosti.</t>
-    <t id="21">Zobrazit výsledky: %1 stíhačky, %2 velké lodě</t>
+    <t id="16">Režim „Útočit na nejvhodnější cíl“ rozdělí věže podle jejich vlastností do tří skupin.</t>
+    <t id="17">Rychlé věže: nejprve útočit na stíhačky</t>
+    <t id="19">Věže s plošným poškozením \(flak\)</t>
+    <t id="20">Všechny ostatní věže: nejprve útočit na velké lodě</t>
+    <t id="21">Zobrazit výsledky: stíhačky %1, rakety %2, velké lodě %3</t>
     <t id="22">Zobrazit výsledky</t>
+    <t id="23">Nejprve střílet na rakety</t>
+    <t id="24">Nejprve střílet na rakety mířící na vlastní loď, pak na stíhačky a pak na velké lodě. Když je vypnuto, nejprve útočit na stíhačky.</t>
+    <t id="25">Raketové věže se přiřazují podle velikosti.</t>
   </page>
 </language>

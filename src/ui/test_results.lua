@@ -3,13 +3,6 @@
 -- turret library is sent to MD, which keeps it until the page is opened. MD pages are
 -- built in MD, so the list has to travel there; UI events carry one Lua table each.
 
-local ffi = require("ffi")
-local C = ffi.C
-pcall(ffi.cdef, "typedef uint64_t UniverseID;")
-ffi.cdef[[
-	bool IsWeaponModeCompatible(UniverseID weaponid, const char* macroname, const char* weaponmodeid);
-]]
-
 local ST = SmartTurrets
 local SCREEN = "SmartTurrets"
 
@@ -29,15 +22,17 @@ local function statsText(stats)
 end
 
 -- Turrets without stats keep their size-based role, and turrets that support neither
--- mode (mining turrets, for example) are left alone, so neither is listed.
+-- mode (mining turrets, for example) are left alone, so neither is listed. MD sorts
+-- the turrets into one column per mode.
 local function publishTurretRoles()
 	AddUITriggeredEvent(SCREEN, "turretRolesBegin")
 	local sent = 0
 	for _, entry in ipairs(GetLibrary("weapons_turrets")) do
 		local mode = ST.macroMode(entry.id)
-		if mode and C.IsWeaponModeCompatible(0, entry.id, mode) then
+		mode = mode and ST.compatibleMode(0, entry.id, mode)
+		if mode then
 			AddUITriggeredEvent(SCREEN, "turretRole", {
-				fighters = (mode == "preferfighters") and 1 or 0,
+				mode = mode,
 				name = entry.name,
 				info = statsText(ST.turretStats(entry.id)),
 			})

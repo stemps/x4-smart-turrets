@@ -5,7 +5,7 @@
     <t id="2">Atakuj najlepiej dopasowany cel</t>
     <t id="3">Prędkość obrotu co najmniej</t>
     <t id="4">Wieżyczki muszą obracać się tak szybko, aby nadążyć za myśliwcami przelatującymi z bliska.</t>
-    <t id="5">i prędkość pocisku co najmniej</t>
+    <t id="5">Prędkość pocisku co najmniej</t>
     <t id="6">Wolniejsze pociski chybiają manewrujące myśliwce. Wiązki zawsze liczą się jako wystarczająco szybkie.</t>
     <t id="8">Eksplozja wyrównuje błędy celowania, więc wieżyczki z obrażeniami obszarowymi mogą obracać się wolniej.</t>
     <t id="10">Najpierw atakuj myśliwce</t>
@@ -14,11 +14,14 @@
     <t id="13">Obrażenia obszarowe</t>
     <t id="14">Nie otrzymano jeszcze danych o wieżyczkach. Wczytaj grę, a następnie ponownie otwórz tę stronę.</t>
     <t id="15">Przywróć wartości domyślne</t>
-    <t id="16">Określa, czy wieżyczki preferują myśliwce, czy okręty kapitałowe, na podstawie prędkości obrotu, prędkości pocisków i efektu obszarowego.</t>
-    <t id="17">Najpierw atakuj myśliwce, jeśli wieżyczka ma ...</t>
-    <t id="19">... lub obrażenia obszarowe i</t>
-    <t id="20">Wszystkie pozostałe wieżyczki najpierw atakują okręty kapitałowe. Wieżyczki rakietowe są przydzielane według rozmiaru.</t>
-    <t id="21">Pokaż wyniki: %1 myśliwce, %2 okręty kapitałowe</t>
+    <t id="16">Tryb „Atakuj najlepiej dopasowany cel” dzieli wieżyczki na trzy grupy według ich parametrów.</t>
+    <t id="17">Szybkie wieżyczki: najpierw atakuj myśliwce</t>
+    <t id="19">Wieżyczki z obrażeniami obszarowymi \(flak\)</t>
+    <t id="20">Wszystkie pozostałe wieżyczki: najpierw atakuj okręty kapitałowe</t>
+    <t id="21">Pokaż wyniki: myśliwce %1, rakiety %2, okręty kapitałowe %3</t>
     <t id="22">Pokaż wyniki</t>
+    <t id="23">Najpierw strzelaj do rakiet</t>
+    <t id="24">Najpierw strzelaj do rakiet lecących we własny statek, potem do myśliwców, a potem do okrętów kapitałowych. Wyłączone: najpierw atakuj myśliwce.</t>
+    <t id="25">Wieżyczki rakietowe są przydzielane według rozmiaru.</t>
   </page>
 </language>

@@ -7,7 +7,7 @@
     <t id="2">Attack best-suited target</t>
     <t id="3">Turn rate at least</t>
     <t id="4">Turrets must turn this fast to keep up with fighters crossing at close range.</t>
-    <t id="5">and projectile speed at least</t>
+    <t id="5">Projectile speed at least</t>
     <t id="6">Slower projectiles miss manoeuvring fighters. Beams always count as fast enough.</t>
     <t id="8">The explosion makes up for aiming errors, so turrets with area damage may turn more slowly.</t>
     <t id="10">Attack fighters first</t>
@@ -16,11 +16,14 @@
     <t id="13">Area damage</t>
     <t id="14">No turret data received yet. Load a game, then reopen this page.</t>
     <t id="15">Reset to defaults</t>
-    <t id="16">Control whether turrets prefer fighters or capital ships based on turn rate, projectile speed and area effect.</t>
-    <t id="17">Attack fighters first if a turret has ...</t>
-    <t id="19">... or area damage and</t>
-    <t id="20">All other turrets attack capital ships first. Missile turrets are assigned by size.</t>
-    <t id="21">View results: %1 fighters, %2 capital ships</t>
+    <t id="16">The "Attack best-suited target" mode sorts turrets into three groups by their stats.</t>
+    <t id="17">Fast turrets: attack fighters first</t>
+    <t id="19">Area damage turrets \(flak\)</t>
+    <t id="20">All other turrets: attack capital ships first</t>
+    <t id="21">View results: %1 fighters, %2 missiles, %3 capital ships</t>
     <t id="22">View results</t>
+    <t id="23">Shoot missiles first</t>
+    <t id="24">Shoot missiles aimed at their own ship first, then fighters, then capital ships. When off, attack fighters first.</t>
+    <t id="25">Missile turrets are assigned by size.</t>
   </page>
 </language>

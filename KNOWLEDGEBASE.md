@@ -158,3 +158,46 @@ namespace, event and UI screen names (`SmartTurrets.*`), the SirNukes options me
 option id (`smartturrets`). Settings stored under the old owner are not migrated. The
 repository folder was renamed to `dev/smart_turrets` as well (remote
 `stemps/x4-smart-turrets`).
+
+## 2026-10-12 - prefermissiles-targeting
+
+Read from `aiscripts/fight.attack.object.capital.xml` (lines ~2196-2225; `medium.xml`
+and `station.xml` match): `preferfighters` gives turrets fighters, then incoming
+missiles, then capitals, with a random fighter as preferred target; `prefermissiles`
+gives incoming missiles, then fighters, then capitals, with a random missile preferred.
+So fighter turrets already shoot missiles when idle. "Incoming missiles" are only those
+aimed at this ship (`event_object_incoming_missile object="this.ship"`), so missiles-first
+turrets never protect escorts. On the first missile of a wave the list is missiles only
+for that round (`$stopshootingold_missiles`). `prefermissiles` ({1001,8639} "Shoot
+missiles first") is in the ship mode list (`helper.lua` turret modes, `forall = true`).
+In-sector only, like the other prefer modes.
+
+## 2026-10-12 - vanilla-missile-speeds
+
+Measured over the base game + DLC missile macros, top speed = engine `thrust forward` /
+missile `drag forward`: light missiles 780-1200 m/s with 1 hull (one hit kills), heavy
+missiles 170-260 m/s with 2-3 hull, torpedoes 70-180 m/s with 8-90 hull. The missiles
+that threaten capital ships are slower than turret targets in general, so turn rate is
+not what limits shooting them down. Two engine lookups gave implausible values (EMP,
+interceptor) and are unexplained. Flak bullets (`bullet_gen_m_flak_01_mk1`: 3000 m/s,
+`areadamage` 210, `plannedselfdestruct="1"`) look made for detonating at the target
+point, which would suit missiles (inferred from attribute names, not tested).
+
+## 2026-10-12 - sirnukes-checkbox
+
+`md.Simple_Menu_API.Make_CheckBox` (Mod Support APIs 195, packed
+`md/simple_menu_api.xml`) takes `$checked` (bool or int) and an `$onClick` cue whose
+`event.param.$checked` is 0 or 1 after the click; `$echo` comes back as with sliders.
+Without `$width`/`$height` the checkbox stretches over the whole cell (seen in game);
+19 x 19 matches the options rows (`config.standardTextHeight` in `gameoptions.lua` and
+Simple_Menu_API) and showed correctly in game (2026-10-12).
+
+## 2026-10-12 - missiles-first-prototype
+
+With option `areaMissilesFirst` (default on), area damage turrets that pass the
+area-damage fighter clause get `prefermissiles` instead of `preferfighters` (with
+default thresholds: vanilla M flak turrets and Boron L flak). The settings page, the
+checkbox and the three-column results page were checked in game (2026-10-12). The
+combat effect is NOT yet tested: open whether flak kills inbound missiles more often
+than fighter-first flak, and whether fighter kills drop noticeably (in-sector test
+against a bomber wing, checkbox on vs off).

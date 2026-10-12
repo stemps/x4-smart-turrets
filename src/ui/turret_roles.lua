@@ -1,7 +1,15 @@
 -- Smart Turrets: decides whether a turret should prefer fighters or capital
 -- ships from its engine stats (turn rate, projectile speed, beam, area damage) and the
--- user's thresholds. Turrets without these stats (missile turrets, modded turrets
--- without a library entry) fall back to their slot size.
+-- user's thresholds. Area damage turrets that qualify for fighters may shoot missiles
+-- first instead. Turrets without these stats (missile turrets, modded turrets without a
+-- library entry) fall back to their slot size.
+
+local ffi = require("ffi")
+local C = ffi.C
+pcall(ffi.cdef, "typedef uint64_t UniverseID;")
+ffi.cdef[[
+	bool IsWeaponModeCompatible(UniverseID weaponid, const char* macroname, const char* weaponmodeid);
+]]
 
 local ST = SmartTurrets
 
@@ -53,7 +61,7 @@ end
 
 local function modeFromStats(stats)
 	if stats.area and (stats.rotation >= ST.setting("areaFighterMinRotation")) then
-		return "preferfighters"
+		return (ST.setting("areaMissilesFirst") ~= 0) and "prefermissiles" or "preferfighters"
 	end
 	if (stats.rotation >= ST.setting("fighterMinRotation")) and (stats.beam or (stats.bulletspeed >= ST.setting("fighterMinBulletSpeed"))) then
 		return "preferfighters"
@@ -73,4 +81,20 @@ function ST.turretMode(component, slotsize)
 	local macro = GetComponentData(ConvertStringTo64Bit(tostring(component)), "macro")
 	local mode = (type(macro) == "string") and (macro ~= "") and ST.macroMode(macro)
 	return mode or MODE_BY_SIZE[slotsize]
+end
+
+-- Missiles first falls back to fighters first; the vanilla AI targets fighters and
+-- missiles with both.
+local FALLBACK_MODE = { prefermissiles = "preferfighters" }
+
+-- mode, or its fallback, if the weapon (component, or 0 and a macro) supports it;
+-- nil if neither is supported.
+function ST.compatibleMode(weapon, macro, mode)
+	while mode do
+		if C.IsWeaponModeCompatible(weapon, macro, mode) then
+			return mode
+		end
+		mode = FALLBACK_MODE[mode]
+	end
+	return nil
 end

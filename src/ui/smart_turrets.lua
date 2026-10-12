@@ -19,7 +19,6 @@ ffi.cdef[[
 	const char* GetTurretGroupMode2(UniverseID defensibleid, UniverseID contextid, const char* path, const char* group);
 	UniverseID GetUpgradeSlotCurrentComponent(UniverseID destructibleid, const char* upgradetypename, size_t slot);
 	const char* GetWeaponMode(UniverseID weaponid);
-	bool IsWeaponModeCompatible(UniverseID weaponid, const char* macroname, const char* weaponmodeid);
 	void SetTurretGroupMode2(UniverseID defensibleid, UniverseID contextid, const char* path, const char* group, const char* mode);
 	void SetWeaponMode(UniverseID weaponid, const char* mode);
 ]]
@@ -60,14 +59,16 @@ local function presetTargets(menu, ship)
 		local sizes = singularTurretSizes(ship)
 		for _, turret in ipairs(menu.turrets) do
 			local mode = ST.turretMode(turret, sizes[tostring(turret)])
-			if mode and C.IsWeaponModeCompatible(turret, "", mode) then
+			mode = mode and ST.compatibleMode(turret, "", mode)
+			if mode then
 				table.insert(targets, { turret = turret, mode = mode })
 			end
 		end
 	end
 	for _, group in ipairs(menu.turretgroups) do
 		local mode = (group.currentcomponent ~= 0) and ST.turretMode(group.currentcomponent, group.slotsize)
-		if mode and C.IsWeaponModeCompatible(group.currentcomponent, "", mode) then
+		mode = mode and ST.compatibleMode(group.currentcomponent, "", mode)
+		if mode then
 			table.insert(targets, { group = group, mode = mode })
 		end
 	end

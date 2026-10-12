@@ -5,7 +5,7 @@
     <t id="2">Atacar el objetivo más adecuado</t>
     <t id="3">Velocidad de giro de al menos</t>
     <t id="4">Las torretas deben girar así de rápido para seguir a los cazas que cruzan a corta distancia.</t>
-    <t id="5">y velocidad de proyectil de al menos</t>
+    <t id="5">Velocidad de proyectil de al menos</t>
     <t id="6">Los proyectiles más lentos fallan contra cazas que maniobran. Los rayos siempre cuentan como suficientemente rápidos.</t>
     <t id="8">La explosión compensa los errores de puntería, así que las torretas con daño de área pueden girar más despacio.</t>
     <t id="10">Atacar primero a los cazas</t>
@@ -14,11 +14,14 @@
     <t id="13">Daño de área</t>
     <t id="14">Aún no se han recibido datos de torretas. Carga una partida y vuelve a abrir esta página.</t>
     <t id="15">Restablecer valores predeterminados</t>
-    <t id="16">Controla si las torretas prefieren cazas o naves capitales según su velocidad de giro, la velocidad de sus proyectiles y su efecto de área.</t>
-    <t id="17">Atacar primero a los cazas si una torreta tiene ...</t>
-    <t id="19">... o daño de área y</t>
-    <t id="20">Todas las demás torretas atacan primero a las naves capitales. Las torretas de misiles se asignan según su tamaño.</t>
-    <t id="21">Ver resultados: %1 cazas, %2 naves capitales</t>
+    <t id="16">El modo «Atacar el objetivo más adecuado» divide las torretas en tres grupos según sus características.</t>
+    <t id="17">Torretas rápidas: atacar primero a los cazas</t>
+    <t id="19">Torretas con daño de área \(antiaéreas\)</t>
+    <t id="20">Todas las demás torretas: atacar primero a las naves capitales</t>
+    <t id="21">Ver resultados: %1 cazas, %2 misiles, %3 naves capitales</t>
     <t id="22">Ver resultados</t>
+    <t id="23">Disparar primero a los misiles</t>
+    <t id="24">Disparar primero a los misiles dirigidos a su propia nave, luego a los cazas y después a las naves capitales. Desactivado: atacar primero a los cazas.</t>
+    <t id="25">Las torretas de misiles se asignan según su tamaño.</t>
   </page>
 </language>

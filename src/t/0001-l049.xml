@@ -5,7 +5,7 @@
     <t id="2">Am besten geeignetes Ziel angreifen</t>
     <t id="3">Drehgeschwindigkeit mindestens</t>
     <t id="4">Türme müssen sich so schnell drehen, um Jägern folgen zu können, die sie aus nächster Nähe kreuzen.</t>
-    <t id="5">und Projektilgeschwindigkeit mindestens</t>
+    <t id="5">Projektilgeschwindigkeit mindestens</t>
     <t id="6">Langsamere Projektile verfehlen ausweichende Jäger. Strahlen gelten immer als schnell genug.</t>
     <t id="8">Die Explosion gleicht Zielfehler aus, daher dürfen sich Türme mit Flächenschaden langsamer drehen.</t>
     <t id="10">Zuerst Jäger angreifen</t>
@@ -14,11 +14,14 @@
     <t id="13">Flächenschaden</t>
     <t id="14">Noch keine Turmdaten empfangen. Spiel laden und diese Seite erneut öffnen.</t>
     <t id="15">Auf Standardwerte zurücksetzen</t>
-    <t id="16">Legt fest, ob Geschütztürme Jäger oder Großkampfschiffe bevorzugen, abhängig von Drehgeschwindigkeit, Projektilgeschwindigkeit und Flächenwirkung.</t>
-    <t id="17">Zuerst Jäger angreifen bei Türmen mit ...</t>
-    <t id="19">... oder Flächenschaden und</t>
-    <t id="20">Alle anderen Türme greifen zuerst Großkampfschiffe an. Raketentürme werden nach Größe zugeordnet.</t>
-    <t id="21">Ergebnisse anzeigen: %1 Jäger, %2 Großkampfschiffe</t>
+    <t id="16">Der Modus „Am besten geeignetes Ziel angreifen“ teilt Türme anhand ihrer Werte in drei Gruppen ein.</t>
+    <t id="17">Schnelle Türme: zuerst Jäger angreifen</t>
+    <t id="19">Türme mit Flächenschaden \(Flak\)</t>
+    <t id="20">Alle anderen Türme: zuerst Großkampfschiffe angreifen</t>
+    <t id="21">Ergebnisse anzeigen: %1 Jäger, %2 Raketen, %3 Großkampfschiffe</t>
     <t id="22">Ergebnisse anzeigen</t>
+    <t id="23">Zuerst auf Raketen schießen</t>
+    <t id="24">Zuerst auf Raketen schießen, die das eigene Schiff anfliegen, dann auf Jäger, dann auf Großkampfschiffe. Ausgeschaltet: zuerst Jäger angreifen.</t>
+    <t id="25">Raketentürme werden nach Größe zugeordnet.</t>
   </page>
 </language>

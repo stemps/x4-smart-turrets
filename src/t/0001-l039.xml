@@ -5,7 +5,7 @@
     <t id="2">Attacca il bersaglio più adatto</t>
     <t id="3">Velocità di rotazione almeno</t>
     <t id="4">Le torrette devono ruotare così velocemente per seguire i caccia che passano a distanza ravvicinata.</t>
-    <t id="5">e velocità dei proiettili almeno</t>
+    <t id="5">Velocità dei proiettili almeno</t>
     <t id="6">I proiettili più lenti mancano i caccia in manovra. I raggi contano sempre come abbastanza veloci.</t>
     <t id="8">L'esplosione compensa gli errori di mira, quindi le torrette con danno ad area possono ruotare più lentamente.</t>
     <t id="10">Attacca prima i caccia</t>
@@ -14,11 +14,14 @@
     <t id="13">Danno ad area</t>
     <t id="14">Nessun dato sulle torrette ricevuto finora. Carica una partita, poi riapri questa pagina.</t>
     <t id="15">Ripristina valori predefiniti</t>
-    <t id="16">Stabilisce se le torrette preferiscono i caccia o le navi capitali in base a velocità di rotazione, velocità dei proiettili ed effetto ad area.</t>
-    <t id="17">Attacca prima i caccia se una torretta ha ...</t>
-    <t id="19">... oppure danno ad area e</t>
-    <t id="20">Tutte le altre torrette attaccano prima le navi capitali. Le torrette lanciamissili vengono assegnate in base alla dimensione.</t>
-    <t id="21">Visualizza risultati: %1 caccia, %2 navi capitali</t>
+    <t id="16">La modalità "Attacca il bersaglio più adatto" divide le torrette in tre gruppi in base alle loro caratteristiche.</t>
+    <t id="17">Torrette rapide: attacca prima i caccia</t>
+    <t id="19">Torrette con danno ad area \(flak\)</t>
+    <t id="20">Tutte le altre torrette: attacca prima le navi capitali</t>
+    <t id="21">Vedi risultati: %1 caccia, %2 missili, %3 navi capitali</t>
     <t id="22">Visualizza risultati</t>
+    <t id="23">Spara prima ai missili</t>
+    <t id="24">Spara prima ai missili diretti alla propria nave, poi ai caccia, poi alle navi capitali. Se disattivato, attacca prima i caccia.</t>
+    <t id="25">Le torrette lanciamissili vengono assegnate in base alla dimensione.</t>
   </page>
 </language>

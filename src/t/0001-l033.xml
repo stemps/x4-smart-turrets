@@ -5,7 +5,7 @@
     <t id="2">Attaquer la cible la plus adaptée</t>
     <t id="3">Vitesse de rotation d'au moins</t>
     <t id="4">Les tourelles doivent tourner aussi vite pour suivre les chasseurs qui passent à courte portée.</t>
-    <t id="5">et vitesse des projectiles d'au moins</t>
+    <t id="5">Vitesse des projectiles d'au moins</t>
     <t id="6">Les projectiles plus lents ratent les chasseurs qui manœuvrent. Les rayons comptent toujours comme assez rapides.</t>
     <t id="8">L'explosion compense les erreurs de visée, les tourelles à dégâts de zone peuvent donc tourner plus lentement.</t>
     <t id="10">Attaquer d'abord les chasseurs</t>
@@ -14,11 +14,14 @@
     <t id="13">Dégâts de zone</t>
     <t id="14">Aucune donnée de tourelle reçue pour l'instant. Chargez une partie, puis rouvrez cette page.</t>
     <t id="15">Rétablir les valeurs par défaut</t>
-    <t id="16">Détermine si les tourelles privilégient les chasseurs ou les vaisseaux capitaux selon leur vitesse de rotation, la vitesse de leurs projectiles et leur effet de zone.</t>
-    <t id="17">Attaquer d'abord les chasseurs si une tourelle a ...</t>
-    <t id="19">... ou des dégâts de zone et</t>
-    <t id="20">Toutes les autres tourelles attaquent d'abord les vaisseaux capitaux. Les tourelles lance-missiles sont attribuées selon leur taille.</t>
-    <t id="21">Voir les résultats : %1 chasseurs, %2 vaisseaux capitaux</t>
+    <t id="16">Le mode « Attaquer la cible la plus adaptée » répartit les tourelles en trois groupes selon leurs caractéristiques.</t>
+    <t id="17">Tourelles rapides : attaquer d'abord les chasseurs</t>
+    <t id="19">Tourelles à dégâts de zone \(flak\)</t>
+    <t id="20">Toutes les autres tourelles : attaquer d'abord les vaisseaux capitaux</t>
+    <t id="21">Voir les résultats : %1 chasseurs, %2 missiles, %3 vaisseaux capitaux</t>
     <t id="22">Voir les résultats</t>
+    <t id="23">Tirer d'abord sur les missiles</t>
+    <t id="24">Tirer d'abord sur les missiles visant leur propre vaisseau, puis sur les chasseurs, puis sur les vaisseaux capitaux. Désactivé : attaquer d'abord les chasseurs.</t>
+    <t id="25">Les tourelles lance-missiles sont attribuées selon leur taille.</t>
   </page>
 </language>
